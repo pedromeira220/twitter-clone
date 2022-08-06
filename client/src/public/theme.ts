@@ -11,6 +11,7 @@ export const theme = {
 
     },
     fonts: {
-        roboto: "Roboto"
+        roboto: "Roboto",
+        jetBrains: "JetBrains Mono"
     }
 }

@@ -4,7 +4,7 @@ import { theme } from '../../public/theme';
 export const Container = styled.button`
     border: none;
     background-color: ${theme.colors.main._100};
-    width: 255px;
+    width: 100%;
     height: 48px;
     border-radius: 99999px;
 
