@@ -1,7 +1,7 @@
 import React from "react";
 import { TitleBold } from "../TitleBold";
 
-import { Container } from "./style";
+import { Container, TopBar} from "./style";
 
 
 
@@ -9,7 +9,10 @@ export function Timeline(){
 
     return (
         <Container>
-            <TitleBold text="Home"/>
+            <TopBar>
+                <TitleBold text="Home"/>    
+            </TopBar>
+            
         </Container>
     )
 }

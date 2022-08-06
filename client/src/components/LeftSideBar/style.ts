@@ -9,7 +9,7 @@ export const Container = styled.aside`
 `;
 
 export const Navigation = styled.div`
-    
+    padding-top: 13px;
     width: 255px;
     display: flex;
     flex-direction: column;
