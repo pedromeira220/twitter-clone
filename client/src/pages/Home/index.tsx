@@ -1,13 +1,17 @@
 import React from "react";
 import { ButtonMain } from "../../components/ButtonMain";
+import { LeftSideBar } from "../../components/LeftSideBar";
 
-import {Container} from "./style";
+
+import {Container, MainFrame, Navigation, SideBarMenuItem} from "./style";
 
 export function Home(){
 
     return (
         <Container>
-            <ButtonMain text="Deploy" />
+            <MainFrame>
+                <LeftSideBar />
+            </MainFrame>
         </Container>
     )
 }
