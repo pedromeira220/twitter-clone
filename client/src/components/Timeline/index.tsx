@@ -1,5 +1,6 @@
 import React from "react";
-import { TitleBold } from "../TitleBold";
+import { PostInput } from "../PostInput";
+import { TitleBold } from "../Typography/TextTitleBold";
 
 import { Container, TopBar } from "./style";
 
@@ -9,6 +10,7 @@ export function Timeline() {
 			<TopBar>
 				<TitleBold text="Home" />
 			</TopBar>
+			<PostInput />
 		</Container>
 	);
 }

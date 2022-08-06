@@ -6,9 +6,5 @@ type TitleBoldProps = {
 };
 
 export function TitleBold({ text }: TitleBoldProps) {
-	return (
-		<>
-			<Text>{text}</Text>
-		</>
-	);
+	return <Text>{text}</Text>;
 }
