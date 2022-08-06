@@ -1,15 +1,11 @@
-import React, {ReactNode} from "react";
+import React, { ReactNode } from "react";
 
 type textBoldProps = {
-    children: ReactNode;
-}
+	children: ReactNode;
+};
 
-import {Text} from './style'
+import { Text } from "./style";
 
-export function TextBodyBold({children}: textBoldProps) {
-    return (
-        <Text>
-            {children}
-        </Text>
-    )
+export function TextBodyBold({ children }: textBoldProps) {
+	return <Text>{children}</Text>;
 }

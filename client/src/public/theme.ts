@@ -15,4 +15,4 @@ export const theme = {
         roboto: "Roboto",
         jetBrains: "JetBrains Mono"
     }
-}
+};

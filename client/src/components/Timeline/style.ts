@@ -1,11 +1,11 @@
-import styled from 'styled-components'
-import { theme } from '../../public/theme';
+import styled from "styled-components";
+import { theme } from "../../public/theme";
 
 export const Container = styled.div`
     
     width: 600px;
     border-left: 1px solid ${theme.colors.theme.darkGray};
-    border-right: 1px solid ${theme.colors.theme.darkGray}
+    border-right: 1px solid ${theme.colors.theme.darkGray};
 `;
 
 
