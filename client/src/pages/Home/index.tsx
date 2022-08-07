@@ -8,7 +8,6 @@ export function Home() {
 	return (
 		<Container>
 			<MainFrame>
-				<LeftSideBar />
 				<Timeline />
 			</MainFrame>
 		</Container>

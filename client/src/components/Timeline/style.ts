@@ -4,6 +4,9 @@ import { theme } from "../../public/theme";
 export const Container = styled.div`
     
     width: 800px;
+
+
+
     border-left: 1px solid ${theme.colors.theme.darkGray};
     border-right: 1px solid ${theme.colors.theme.darkGray};
 `;

@@ -6,9 +6,9 @@ export const Container = styled.div`
 `;
 
 export const MainFrame = styled.main`
-    
+
     margin: 24px auto 0;
-    max-width: 1341px;
+    max-width: 800px;
     display: flex;
     width: 100%;
 

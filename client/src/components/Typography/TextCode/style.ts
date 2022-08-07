@@ -8,5 +8,6 @@ interface textProps {
 export const Text = styled.span<textProps>`
     color: ${(props) => props.textColor};
     font-family: ${theme.fonts.jetBrains};
+    font-size: 20px;
 `;
 
