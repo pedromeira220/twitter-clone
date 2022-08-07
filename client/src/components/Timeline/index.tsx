@@ -1,4 +1,5 @@
 import React from "react";
+
 import { PostInput } from "../PostInput";
 import { TitleBold } from "../Typography/TextTitleBold";
 
