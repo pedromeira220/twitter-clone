@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { ImageSquare } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { theme } from "../../public/theme";
 import { ButtonLight } from "../ButtonLight";
 import { ButtonMain } from "../ButtonMain";
@@ -13,22 +13,27 @@ import { Container, InputContainer, Input, TextColored } from "./style";
 export function PostInput() {
 	const [isPostInputOpen, setIsPostInputOpen] = useState(false);
 	const [postInputText, setPostInputText] = useState("");
+	const [isButtonMainDisabled, setIsButtonMainDisabled] = useState(true);
 
 	function handlePostInputClick() {
 		setIsPostInputOpen(true);
 	}
 
 	function handlePostInputChange(text: string) {
-		console.log(text);
 		setPostInputText(text);
+	}
+
+	useEffect(() => {
+		if (postInputText.length > 0) {
+			setIsButtonMainDisabled(false);
+		} else {
+			setIsButtonMainDisabled(true);
+		}
+	});
+
+	function handleSubmitPostButtonClick() {
 		console.log(postInputText);
 	}
-	/*
-function handleSubmitPostButtonClick() {
-
-}
-
-*/
 
 	return (
 		<Container>
@@ -86,7 +91,14 @@ function handleSubmitPostButtonClick() {
 					<ButtonLight hoverColor={theme.colors.main.light}>
 						<ImageSquare size={24} color={theme.colors.main._100} />
 					</ButtonLight>
-					<ButtonMain text="Deploy" width="74px" />
+					<ButtonMain
+						disabled={isButtonMainDisabled}
+						onClick={() => {
+							handleSubmitPostButtonClick();
+						}}
+						text="Deploy"
+						width="74px"
+					/>
 				</div>
 			</div>
 		</Container>

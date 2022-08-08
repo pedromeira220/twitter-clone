@@ -3,7 +3,9 @@ export const theme = {
         main: {
             _100: "#8257E5",
             _85: "#724EC7",
-            light: "#8257E533"
+            light: "#8257E533",
+            hover: "#6833e4",
+            dark: "#633BBB"
         },
         theme: {
             light: "#ffffff",
