@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { theme } from "../../public/theme";
 
-export const Container = styled.button`
+type containerProps = {
+    hoverColor: string;
+}
+
+export const Container = styled.button<containerProps>`
     border: none;
     background-color: transparent;
     border-radius: 19px;
@@ -12,7 +16,7 @@ export const Container = styled.button`
     align-items: center;
 
     &:hover { 
-        background-color: ${theme.colors.main.light};
+        background-color: ${(props) => props.hoverColor};
         cursor: pointer;
 
     }

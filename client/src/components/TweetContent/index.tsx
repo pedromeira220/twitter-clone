@@ -1,10 +1,11 @@
 import React, { ReactNode } from "react";
 import { theme } from "../../public/theme";
+import { ActionButton } from "../ActionButton";
 import { TweetImage } from "../TweetImage";
 import { TextBodyBold } from "../Typography/TextBodyBold";
 import { TextCode } from "../Typography/TextCode";
 import {
-	ActionButtons,
+	ActionButtonsContainer,
 	Container,
 	Main,
 	PostTime,
@@ -14,6 +15,8 @@ import {
 	Username,
 	Dot,
 } from "./style";
+
+import { Heart } from "phosphor-react";
 
 type tweetContent = {
 	children: ReactNode;
@@ -60,7 +63,12 @@ export function TweetContent({ children, image }: tweetContent) {
 					<TweetImage />
 				</>
 			)}
-			<ActionButtons></ActionButtons>
+			<ActionButtonsContainer>
+				<ActionButton
+					icon={<Heart size={19} color={theme.colors.theme.middleGray} />}
+					numberOfClicksByOtherUsers={120}
+				/>
+			</ActionButtonsContainer>
 		</Container>
 	);
 }

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { ImageSquare } from "phosphor-react";
 import React, { useState } from "react";
 import { theme } from "../../public/theme";
 import { ButtonLight } from "../ButtonLight";
@@ -76,7 +77,9 @@ export function PostInput() {
 						alignItems: "center",
 					}}
 				>
-					<ButtonLight />
+					<ButtonLight hoverColor={theme.colors.main.light}>
+						<ImageSquare size={24} color={theme.colors.main._100} />
+					</ButtonLight>
 					<ButtonMain text="Deploy" width="74px" />
 				</div>
 			</div>

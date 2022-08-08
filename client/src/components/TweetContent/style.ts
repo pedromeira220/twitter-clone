@@ -9,14 +9,19 @@ export const Main = styled.div`
 
 `;
 
-export const ActionButtons = styled.div`
+export const ActionButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 24px;
 
 `;
 
 export const UserInfo = styled.div`
     display: flex;
     margin-bottom: 17px;
-    margin-left: 24px;
+
 `;
 
 export const TweetText = styled.div`

@@ -10,7 +10,9 @@ export const theme = {
             dark: "#1E1E1E",
             darkGray: "#2F3336",
             middleGray: "#6E767D",
-        }
+        },
+        red: "#FC5385",
+        redLight: "#FC538533"
 
     },
     fonts: {
