@@ -6,11 +6,22 @@ import { ButtonLight } from "../ButtonLight";
 import { ButtonMain } from "../ButtonMain";
 import { Line } from "../Line";
 import { ProfilePicture } from "../ProfilePicture";
+import { tweetProps, userProps } from "../Tweet";
 import { TextCode } from "../Typography/TextCode";
 
 import { Container, InputContainer, Input, TextColored } from "./style";
 
-export function PostInput() {
+type postInputProps = {
+	user: userProps;
+	tweets: tweetProps[];
+	setTweetsList: React.Dispatch<React.SetStateAction<tweetProps[]>>;
+};
+
+export function PostInput({
+	user,
+	tweets: tweetsList,
+	setTweetsList,
+}: postInputProps) {
 	const [isPostInputOpen, setIsPostInputOpen] = useState(false);
 	const [postInputText, setPostInputText] = useState("");
 	const [isButtonMainDisabled, setIsButtonMainDisabled] = useState(true);
@@ -33,14 +44,25 @@ export function PostInput() {
 
 	function handleSubmitPostButtonClick() {
 		console.log(postInputText);
+		const newTweet = {
+			data: {
+				content: postInputText,
+				creationDate: new Date(),
+				numberOfLikes: 0,
+				user,
+			},
+		};
+		const newTweetsList = [newTweet, ...tweetsList];
+
+		setTweetsList(newTweetsList);
 	}
 
 	return (
 		<Container>
 			<div>
 				<ProfilePicture
-					altText="Profile picture of user"
-					source="https://github.com/petergamer8k.png"
+					altText={"Profile picture of user " + user.name}
+					source={user.profilePicture}
 				/>
 			</div>
 			<div style={{ marginLeft: "1rem", width: "100%" }}>

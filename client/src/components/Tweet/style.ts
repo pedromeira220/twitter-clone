@@ -3,8 +3,6 @@ import { theme } from "../../public/theme";
 
 export const Container = styled.div`
     width: 100%;
-
-    height: 270px;
     border-top: 1px solid ${theme.colors.theme.darkGray};
     border-left: 0px;
     border-right: 0px;
@@ -13,7 +11,7 @@ export const Container = styled.div`
 
 export const Body = styled.div`
     display: flex;
-    height: 160px;
+
 `;
 
 export const ProfilePictureContainer = styled.div`

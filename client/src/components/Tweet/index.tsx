@@ -26,7 +26,7 @@ export function Tweet({ data }: tweetProps) {
 			<Body>
 				<ProfilePictureContainer>
 					<ProfilePicture
-						altText={`User ${user.name} profile picture`}
+						altText={"Profile picture of user " + user.name}
 						source={user.profilePicture}
 					/>
 				</ProfilePictureContainer>
