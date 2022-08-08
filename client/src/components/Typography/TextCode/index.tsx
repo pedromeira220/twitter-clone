@@ -1,12 +1,23 @@
 import React, { ReactNode } from "react";
+import { theme } from "../../../public/theme";
 
 type textCodeProps = {
 	children: ReactNode;
-	textColor: string;
+	textColor?: string;
+	fontSize?: string;
 };
 
 import { Text } from "./style";
 
-export function TextCode({ children, textColor }: textCodeProps) {
-	return <Text textColor={textColor}> {children}</Text>;
+export function TextCode({
+	children,
+	textColor = theme.colors.theme.light,
+	fontSize = "20px",
+}: textCodeProps) {
+	return (
+		<Text fontSize={fontSize} textColor={textColor}>
+			{" "}
+			{children}
+		</Text>
+	);
 }

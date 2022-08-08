@@ -77,7 +77,7 @@ export function PostInput() {
 					}}
 				>
 					<ButtonLight />
-					<ButtonMain text="Post" width="74px" />
+					<ButtonMain text="Deploy" width="74px" />
 				</div>
 			</div>
 		</Container>

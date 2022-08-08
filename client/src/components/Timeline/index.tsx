@@ -1,4 +1,6 @@
 import React from "react";
+import { BigSeparator } from "../BigSeparator";
+import { FeedTimeline } from "../FeedTimeline";
 
 import { PostInput } from "../PostInput";
 import { TitleBold } from "../Typography/TextTitleBold";
@@ -12,6 +14,8 @@ export function Timeline() {
 				<TitleBold text="Home" />
 			</TopBar>
 			<PostInput />
+			<BigSeparator />
+			<FeedTimeline />
 		</Container>
 	);
 }
