@@ -23,6 +23,12 @@ export function PostInput() {
 		setPostInputText(text);
 		console.log(postInputText);
 	}
+	/*
+function handleSubmitPostButtonClick() {
+
+}
+
+*/
 
 	return (
 		<Container>

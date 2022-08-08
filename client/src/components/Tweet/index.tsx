@@ -3,20 +3,39 @@ import { ProfilePicture } from "../ProfilePicture";
 import { TweetContent } from "../TweetContent";
 import { Container, Body, ProfilePictureContainer } from "./style";
 
-export function Tweet() {
-	const tweetText =
-		"If you want to write efficient JavaScript code, try breaking things down into smaller pieces. And @JoyShaheb can help you do that. In this illustrated guide, he teaches you callbacks, promises, and async/await in JS by building an ice cream shop.";
+export type tweetProps = {
+	data: {
+		user: userProps;
+		creationDate: Date;
+		content: string;
+		numberOfLikes: number;
+	};
+};
+
+export type userProps = {
+	name: string;
+	identifier: string;
+	profilePicture: string;
+};
+
+export function Tweet({ data }: tweetProps) {
+	const { content, creationDate, numberOfLikes, user } = data;
 
 	return (
 		<Container>
 			<Body>
 				<ProfilePictureContainer>
 					<ProfilePicture
-						altText="User profile picture"
-						source="https://github.com/petergamer8k.png"
+						altText={`User ${user.name} profile picture`}
+						source={user.profilePicture}
 					/>
 				</ProfilePictureContainer>
-				<TweetContent>{tweetText}</TweetContent>
+				<TweetContent
+					creationDate={creationDate}
+					user={user}
+					numberOfLikes={numberOfLikes}
+					contentText={content}
+				/>
 			</Body>
 		</Container>
 	);

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { theme } from "../../public/theme";
 import { ActionButton } from "../ActionButton";
 import { TweetImage } from "../TweetImage";
@@ -17,23 +17,43 @@ import {
 } from "./style";
 
 import { Heart } from "phosphor-react";
+import { userProps } from "../Tweet";
+
+//NOTE: Fix the post time
 
 type tweetContent = {
-	children: ReactNode;
+	contentText: string;
 	image?: string;
+	numberOfLikes: number;
+	user: userProps;
+	creationDate: Date;
 };
 
-export function TweetContent({ children, image }: tweetContent) {
+export function TweetContent({
+	contentText,
+	image,
+	numberOfLikes,
+	user,
+	creationDate,
+}: tweetContent) {
+	const [postTime, setPostTime] = useState(new Date());
+
+	useEffect(() => {
+		const currentDate = new Date();
+
+		setPostTime(new Date(currentDate.getTime() - creationDate.getTime()));
+	}, []);
+
 	return (
 		<Container>
 			<Main>
 				<UserInfo>
 					<Username>
-						<TextBodyBold>Pedro Meira </TextBodyBold>
+						<TextBodyBold>{user.name}</TextBodyBold>
 					</Username>
 					<UserIdentifier>
 						<TextCode fontSize="15px" textColor={theme.colors.theme.middleGray}>
-							@pedromeira
+							{`@${user.identifier}`}
 						</TextCode>
 					</UserIdentifier>
 					<span
@@ -50,12 +70,12 @@ export function TweetContent({ children, image }: tweetContent) {
 
 					<PostTime>
 						<TextCode fontSize="15px" textColor={theme.colors.theme.middleGray}>
-							1h
+							<span>{postTime.getHours()}h</span>
 						</TextCode>
 					</PostTime>
 				</UserInfo>
 				<TweetText>
-					<TextCode fontSize="15px">{children}</TextCode>
+					<TextCode fontSize="15px">{contentText}</TextCode>
 				</TweetText>
 			</Main>
 			{image && (
@@ -66,7 +86,7 @@ export function TweetContent({ children, image }: tweetContent) {
 			<ActionButtonsContainer>
 				<ActionButton
 					icon={<Heart size={19} color={theme.colors.theme.middleGray} />}
-					numberOfClicksByOtherUsers={120}
+					numberOfClicksByOtherUsers={numberOfLikes}
 				/>
 			</ActionButtonsContainer>
 		</Container>
