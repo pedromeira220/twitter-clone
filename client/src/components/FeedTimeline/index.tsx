@@ -8,17 +8,18 @@ type feedTimelineProps = {
 	setTweetsList: React.Dispatch<React.SetStateAction<tweetProps[]>>;
 };
 
-export function FeedTimeline({
-	user,
-	tweets,
-	setTweetsList,
-}: feedTimelineProps) {
+export function FeedTimeline({ tweets, setTweetsList }: feedTimelineProps) {
 	return (
 		<Container>
 			{tweets.map((tweet) => {
 				return (
 					<>
-						<Tweet setTweetsList={setTweetsList} tweet={tweet} key={tweet.data.id} />
+						<Tweet
+							tweets={tweets}
+							setTweetsList={setTweetsList}
+							tweet={tweet}
+							key={tweet.data.id}
+						/>
 					</>
 				);
 			})}
