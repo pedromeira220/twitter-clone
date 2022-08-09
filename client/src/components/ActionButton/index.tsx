@@ -1,8 +1,6 @@
-import { SvgProperties } from "csstype";
 import React, { ButtonHTMLAttributes } from "react";
 import { theme } from "../../public/theme";
 import { ButtonLight } from "../ButtonLight";
-import { TextCode } from "../Typography/TextCode";
 
 import { Container, Text } from "./style";
 

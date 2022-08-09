@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { theme } from "../../public/theme";
 import { ActionButton } from "../ActionButton";
 import { TweetImage } from "../TweetImage";
@@ -40,7 +40,6 @@ export function TweetContent({
 	setTweetsList,
 	creationDate,
 	tweet,
-	tweets,
 }: tweetContent) {
 	const [postTime, setPostTime] = useState(new Date());
 
