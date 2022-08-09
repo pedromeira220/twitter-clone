@@ -5,11 +5,18 @@ import { Container, Body, ProfilePictureContainer } from "./style";
 
 export type tweetProps = {
 	data: {
+		id: string;
 		user: userProps;
 		creationDate: Date;
 		content: string;
 		numberOfLikes: number;
 	};
+};
+
+type tweetComponentProps = {
+	tweets: tweetProps[];
+	tweet: tweetProps;
+	setTweetsList: React.Dispatch<React.SetStateAction<tweetProps[]>>;
 };
 
 export type userProps = {
@@ -18,8 +25,8 @@ export type userProps = {
 	profilePicture: string;
 };
 
-export function Tweet({ data }: tweetProps) {
-	const { content, creationDate, numberOfLikes, user } = data;
+export function Tweet({ tweet, setTweetsList, tweets }: tweetComponentProps) {
+	const { content, creationDate, numberOfLikes, user } = tweet.data;
 
 	return (
 		<Container>
@@ -31,6 +38,9 @@ export function Tweet({ data }: tweetProps) {
 					/>
 				</ProfilePictureContainer>
 				<TweetContent
+					tweets={tweets}
+					tweet={tweet}
+					setTweetsList={setTweetsList}
 					creationDate={creationDate}
 					user={user}
 					numberOfLikes={numberOfLikes}

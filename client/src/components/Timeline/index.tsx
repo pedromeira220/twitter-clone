@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BigSeparator } from "../BigSeparator";
 import { FeedTimeline } from "../FeedTimeline";
 
@@ -18,6 +18,7 @@ export function Timeline() {
 		{
 			data: {
 				user: user,
+				id: new Date().getTime().toString(),
 				content:
 					"If you want to write efficient JavaScript code, try breaking things down into smaller pieces. And @JoyShaheb can help you do that. In this illustrated guide, he teaches you callbacks, promises, and async/await in JS by building an ice cream shop.",
 				creationDate: new Date(),
@@ -27,6 +28,10 @@ export function Timeline() {
 	];
 
 	const [tweetsList, setTweetsList] = useState<tweetProps[]>(tweets);
+
+	useEffect(() => {
+		console.log(tweetsList);
+	}, [tweetsList]);
 
 	return (
 		<Container>

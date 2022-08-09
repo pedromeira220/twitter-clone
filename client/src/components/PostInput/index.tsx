@@ -44,11 +44,12 @@ export function PostInput({
 
 	function handleSubmitPostButtonClick() {
 		console.log(postInputText);
-		const newTweet = {
+		const newTweet: tweetProps = {
 			data: {
 				content: postInputText,
 				creationDate: new Date(),
 				numberOfLikes: 0,
+				id: new Date().getTime().toString(),
 				user,
 			},
 		};

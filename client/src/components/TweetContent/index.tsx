@@ -17,16 +17,19 @@ import {
 } from "./style";
 
 import { Heart } from "phosphor-react";
-import { userProps } from "../Tweet";
+import { tweetProps, userProps } from "../Tweet";
 
 //NOTE: Fix the post time
 
 type tweetContent = {
+	tweets: tweetProps[];
+	tweet: tweetProps;
 	contentText: string;
 	image?: string;
 	numberOfLikes: number;
 	user: userProps;
 	creationDate: Date;
+	setTweetsList: React.Dispatch<React.SetStateAction<tweetProps[]>>;
 };
 
 export function TweetContent({
@@ -34,9 +37,31 @@ export function TweetContent({
 	image,
 	numberOfLikes,
 	user,
+	setTweetsList,
 	creationDate,
+	tweet,
+	tweets,
 }: tweetContent) {
 	const [postTime, setPostTime] = useState(new Date());
+
+	function handleLikeButtonClick() {
+		setTweetsList((tweetListState) => {
+			const newTweetList = tweetListState.map((currentTweet) => {
+				if (currentTweet.data.id == tweet.data.id) {
+					const tweetToReturn = {
+						...currentTweet.data,
+						numberOfLikes: numberOfLikes + 1,
+					};
+
+					return { data: tweetToReturn };
+				}
+
+				return currentTweet;
+			});
+
+			return newTweetList;
+		});
+	}
 
 	useEffect(() => {
 		const currentDate = new Date();
@@ -85,6 +110,7 @@ export function TweetContent({
 			)}
 			<ActionButtonsContainer>
 				<ActionButton
+					onClick={handleLikeButtonClick}
 					icon={<Heart size={19} color={theme.colors.theme.middleGray} />}
 					numberOfClicksByOtherUsers={numberOfLikes}
 				/>
