@@ -111,7 +111,10 @@ export function TweetContent({
 				<ActionButton
 					onClick={handleLikeButtonClick}
 					icon={<Heart size={19} color={theme.colors.theme.middleGray} />}
-					numberOfClicksByOtherUsers={numberOfLikes}
+					numberOfClicksByOtherUsers={(numberOfLikes >= 1000
+						? `${numberOfLikes / 1000}k`
+						: numberOfLikes
+					).toString()}
 				/>
 			</ActionButtonsContainer>
 		</Container>

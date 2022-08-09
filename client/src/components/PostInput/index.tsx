@@ -43,7 +43,6 @@ export function PostInput({
 	});
 
 	function handleSubmitPostButtonClick() {
-		console.log(postInputText);
 		const newTweet: tweetProps = {
 			data: {
 				content: postInputText,
@@ -55,6 +54,7 @@ export function PostInput({
 		};
 		const newTweetsList = [newTweet, ...tweetsList];
 
+		setPostInputText("");
 		setTweetsList(newTweetsList);
 	}
 
@@ -85,6 +85,7 @@ export function PostInput({
 							<TextColored color={theme.colors.main._100}>"</TextColored>
 
 							<Input
+								value={postInputText}
 								maxLength={200}
 								onChange={(event) => {
 									const text = event.target.value;

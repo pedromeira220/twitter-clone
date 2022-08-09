@@ -5,7 +5,7 @@ import { ButtonLight } from "../ButtonLight";
 import { Container, Text } from "./style";
 
 type actionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-	numberOfClicksByOtherUsers: number;
+	numberOfClicksByOtherUsers: string;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon: any;
 };
