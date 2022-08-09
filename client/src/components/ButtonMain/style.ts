@@ -41,6 +41,12 @@ export const Container = styled.button<containerProps>`
     }
 `;
 
-export const Title = styled.span`
 
+type titleProps = {
+    disabled: boolean | undefined;
+}
+
+export const Title = styled.span<titleProps>`
+
+    opacity: ${(props) => props.disabled ? 0.4 : 1}
 `;

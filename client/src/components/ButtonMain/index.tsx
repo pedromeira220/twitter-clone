@@ -8,10 +8,10 @@ type buttonMainProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 	width?: string;
 };
 
-export function ButtonMain({ text, width, ...rest }: buttonMainProps) {
+export function ButtonMain({ text, width,disabled,  ...rest }: buttonMainProps) {
 	return (
-		<Container {...rest} width={width}>
-			<Title>
+		<Container disabled={disabled} {...rest} width={width}>
+			<Title disabled={disabled}>
 				<TextBodyBold>{text}</TextBodyBold>
 			</Title>
 		</Container>
