@@ -65,6 +65,8 @@ export function TweetContent({
 	useEffect(() => {
 		const currentDate = new Date();
 
+		console.log("Data", currentDate.getTime() - creationDate.getTime());
+
 		setPostTime(new Date(currentDate.getTime() - creationDate.getTime()));
 	}, []);
 
@@ -94,7 +96,7 @@ export function TweetContent({
 
 					<PostTime>
 						<TextCode fontSize="15px" textColor={theme.colors.theme.middleGray}>
-							<span>{postTime.getHours()}h</span>
+							<span>{postTime.getMinutes()}min</span>
 						</TextCode>
 					</PostTime>
 				</UserInfo>
