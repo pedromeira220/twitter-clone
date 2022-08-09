@@ -1,5 +1,6 @@
 import React from "react";
-import { Tweet, tweetProps, userProps } from "../Tweet";
+import { tweetProps, userProps } from "../../@types/types";
+import { Tweet } from "../Tweet";
 import { Container } from "./style";
 
 type feedTimelineProps = {

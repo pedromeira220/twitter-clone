@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+import { tweetProps, userProps } from "../../@types/types";
 import { UserContext } from "../../utils/contexts/userContext";
 import { BigSeparator } from "../BigSeparator";
 import { FeedTimeline } from "../FeedTimeline";
 
 import { PostInput } from "../PostInput";
-import { tweetProps, userProps } from "../Tweet";
+
 import { TitleBold } from "../Typography/TextTitleBold";
 
 import { Container, TopBar } from "./style";
@@ -14,10 +15,17 @@ export function Timeline() {
 
 	const user = useContext(UserContext);
 
-	const tweets: tweetProps[] = [
+	const newUser: userProps = {
+		email: "teste@teste.com",
+		identifier: "testName",
+		name: "usuario teste",
+		profilePicture: "https://github.com/rocketseat.png",
+	};
+
+	const [tweetsList, setTweetsList] = useState<tweetProps[]>([
 		{
 			data: {
-				user: user,
+				user: newUser,
 				id: new Date().getTime().toString() + 1,
 				content:
 					"If you want to write efficient JavaScript code, try breaking things down into smaller pieces. And @JoyShaheb can help you do that. In this illustrated guide, he teaches you callbacks, promises, and async/await in JS by building an ice cream shop.",
@@ -36,16 +44,14 @@ export function Timeline() {
 		},
 		{
 			data: {
-				user: user,
+				user: newUser,
 				id: new Date().getTime().toString() + 3,
 				content: "Tweet test",
 				creationDate: creationDate,
 				numberOfLikes: 1200,
 			},
 		},
-	];
-
-	const [tweetsList, setTweetsList] = useState<tweetProps[]>(tweets);
+	]);
 
 	useEffect(() => {
 		console.log(tweetsList);

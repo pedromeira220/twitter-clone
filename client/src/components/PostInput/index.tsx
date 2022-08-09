@@ -1,12 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 import { ImageSquare } from "phosphor-react";
 import React, { useEffect, useState } from "react";
+import { tweetProps, userProps } from "../../@types/types";
 import { theme } from "../../public/theme";
 import { ButtonLight } from "../ButtonLight";
 import { ButtonMain } from "../ButtonMain";
 import { Line } from "../Line";
 import { ProfilePicture } from "../ProfilePicture";
-import { tweetProps, userProps } from "../Tweet";
+
 import { TextCode } from "../Typography/TextCode";
 
 import { Container, InputContainer, Input, TextColored } from "./style";

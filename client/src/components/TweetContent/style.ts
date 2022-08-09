@@ -25,7 +25,7 @@ export const UserInfo = styled.div`
 `;
 
 export const TweetText = styled.div`
-
+    text-align: justify;
 `;
 
 export const Username = styled.span`

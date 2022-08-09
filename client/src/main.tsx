@@ -10,6 +10,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 				identifier: "pedromeira220",
 				name: "Pedro Meira",
 				profilePicture: "https://github.com/petergamer8k.png",
+				email: "pedro@email.com",
 			}}
 		>
 			<App />

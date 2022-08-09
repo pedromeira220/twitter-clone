@@ -17,7 +17,7 @@ import {
 } from "./style";
 
 import { Heart } from "phosphor-react";
-import { tweetProps, userProps } from "../Tweet";
+import { tweetProps, userProps } from "../../@types/types";
 
 //NOTE: Fix the post time
 
