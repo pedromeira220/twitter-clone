@@ -4,7 +4,7 @@ import { InputMain } from "../../../components/InputMain";
 import { TextBodyBold } from "../../../components/Typography/TextBodyBold";
 import { TextCode } from "../../../components/Typography/TextCode";
 import { theme } from "../../../public/theme";
-import { AuthUseCase } from "../authUseCase";
+import { AuthUseCase } from "../AuthUseCase";
 import { Container, MainFrame, Title, Form, Footer } from "./style";
 
 const authUseCase = new AuthUseCase();

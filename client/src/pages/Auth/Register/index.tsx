@@ -4,7 +4,7 @@ import { InputMain } from "../../../components/InputMain";
 import { TextBodyBold } from "../../../components/Typography/TextBodyBold";
 import { TextCode } from "../../../components/Typography/TextCode";
 import { theme } from "../../../public/theme";
-import { AuthUseCase } from "../authUseCase";
+import { AuthUseCase } from "../AuthUseCase";
 import { Container, MainFrame, Title, Form, Footer } from "./style";
 
 const authUseCase = new AuthUseCase();
@@ -12,6 +12,7 @@ const authUseCase = new AuthUseCase();
 export function Register() {
 	const [emailText, setEmailText] = useState("");
 	const [passwordText, setPasswordText] = useState("");
+	const [nameText, setNameText] = useState("");
 
 	function throwError(errorMessage: string) {
 		alert(errorMessage);
@@ -21,10 +22,10 @@ export function Register() {
 		event.preventDefault();
 
 		if (!authUseCase.isValidEmail(emailText)) {
-			throwError("Invalid email");
+			throwError("Invalid email format");
 		}
 
-		console.log(emailText, passwordText);
+		console.log(emailText, passwordText, nameText);
 	}
 
 	function handleEmailInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -38,6 +39,11 @@ export function Register() {
 	) {
 		const text = event?.target.value;
 		setPasswordText(text);
+	}
+
+	function handleNameInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+		const text = event?.target.value;
+		setNameText(text);
 	}
 	return (
 		<Container>
@@ -63,6 +69,13 @@ export function Register() {
 						type={"password"}
 						placeholder="Password"
 					/>
+					<InputMain
+						onChange={(event) => {
+							handleNameInputChange(event);
+						}}
+						type={"text"}
+						placeholder="Your name"
+					/>
 					<ButtonMain
 						type="submit"
 						onClick={handleLogIn}
@@ -74,20 +87,32 @@ export function Register() {
 				</Form>
 
 				<Footer>
-					<TextCode>Already have an account?</TextCode>
+					<span style={{ textAlign: "center" }}>
+						<TextCode>Already have an account?</TextCode>
+					</span>
+
 					<div
 						style={{
 							color: theme.colors.theme.light,
 						}}
 					>
 						<TextBodyBold>
-							<span
+							<div
 								style={{
-									fontSize: 24,
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
 								}}
 							>
-								Log in
-							</span>
+								<span
+									style={{
+										fontSize: 24,
+										textAlign: "center",
+									}}
+								>
+									Log in
+								</span>
+							</div>
 						</TextBodyBold>
 					</div>
 				</Footer>
