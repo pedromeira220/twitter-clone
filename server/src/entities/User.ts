@@ -1,4 +1,5 @@
 import { uuid } from "uuidv4";
+import dayjs from "dayjs";
 
 export class User {
 	public readonly id?: string;
@@ -10,13 +11,12 @@ export class User {
 	public created_at: Date;
 	public post_id_list: string[] = [];
 
-	constructor(props: Omit<User, "id">, id?: string) {
+	constructor(props: IUser, id?: string) {
 		this.name = props.name;
 		this.email = props.email;
 		this.profile_picture = props.profile_picture;
 		this.identifier = props.identifier;
-		this.created_at = props.created_at;
-		this.post_id_list = props.post_id_list;
+		this.created_at = new Date();
 
 		if (!id) {
 			this.id = uuid();
@@ -24,4 +24,11 @@ export class User {
 			this.id = id;
 		}
 	}
+}
+
+interface IUser {
+	name: string;
+	email: string;
+	profile_picture: string;
+	identifier: string;
 }
