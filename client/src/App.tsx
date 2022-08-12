@@ -8,7 +8,7 @@ import "./public/global.css";
 function App() {
 	return (
 		<>
-			<Register />
+			<Home />
 		</>
 	);
 }
