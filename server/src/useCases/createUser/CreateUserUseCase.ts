@@ -6,7 +6,7 @@ import { IError } from "./IError";
 export class CreateUserUseCase {
 	constructor(private usersRepository: IUsersRepository) {}
 
-	async execute(data: ICreateUserRequestDTO): Promise<User | IError | null> {
+	async execute(data: ICreateUserRequestDTO): Promise<User | IError> {
 		const userFound = await this.usersRepository.findByEmail(data.email);
 
 		if (userFound) {
