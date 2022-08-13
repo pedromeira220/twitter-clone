@@ -1,7 +1,9 @@
 import { Router } from "express";
+import { deleteLike } from "./repositories/functions/deleteLike";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
 import { getAllPosts } from "./repositories/functions/getAllPosts";
+import { insertLike } from "./repositories/functions/insertLike";
 import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
 import { crypto } from "./services/crypto";
@@ -100,6 +102,48 @@ router.get("/get_all_posts", async (req, res) => {
 	}
 
 	return res.status(200).json({ data: postList });
+});
+
+router.post("/user/like_a_post", async (req, res) => {
+	const { user_id, post_id } = req.body;
+
+	if (!user_id) {
+		return res.status(422).json({ error: true, msg: "The user id is required" });
+	}
+
+	if (!post_id) {
+		return res.status(422).json({ error: true, msg: "The post id is required" });
+	}
+
+	const likeCreated = await insertLike({ post_id, user_id });
+
+	if (!likeCreated) {
+		return res
+			.status(500)
+			.json({ error: true, msg: "Internal server error, try again later" });
+	}
+
+	return res.status(201).json({ data: likeCreated });
+});
+
+router.delete("/user/unlike_post", async (req, res) => {
+	const { user_id, post_id } = req.body;
+
+	if (!user_id) {
+		return res.status(422).json({ error: true, msg: "The user id is required" });
+	}
+
+	if (!post_id) {
+		return res.status(422).json({ error: true, msg: "The post id is required" });
+	}
+
+	const likeDeleted = await deleteLike({ post_id, user_id });
+
+	if (!likeDeleted) {
+		return res.status(422).json({ error: true, msg: "Internal server error" });
+	}
+
+	return res.status(200).json({ error: false, data: likeDeleted });
 });
 
 export { router };
