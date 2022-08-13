@@ -14,7 +14,13 @@ const pool = new Pool({
 });
 
 pool.on("connect", () => {
-	console.log("Base de Dados conectado com sucesso!");
+	console.log("Database successfully connected!");
+});
+
+pool.on("error", (error) => {
+	console.log(error);
+
+	throw new Error("Internal server error");
 });
 
 export function databaseQuery(text: string, params?: Array<unknown>) {

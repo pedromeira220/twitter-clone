@@ -18,4 +18,14 @@ export class SessionUserRepository implements IUsersRepository {
 		this.users.push(user);
 		return user;
 	}
+
+	async findByIdentifier(identifier: string): Promise<User | null> {
+		const userFound = this.users.find((user) => user.identifier == identifier);
+
+		if (!userFound) {
+			return null;
+		}
+
+		return userFound;
+	}
 }
