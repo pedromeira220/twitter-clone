@@ -9,3 +9,39 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  profile_picture String
+  identifier      String
+  created_at      DateTime
+  Like            Like[]
+  post            Post[]
+
+  @@map("users")
+}
+
+model Post {
+  id           String   @id @default(uuid())
+  title        String
+  created_at   DateTime
+  text_content String
+  Like         Like[]
+  User         User?    @relation(fields: [userId], references: [id])
+  userId       String?
+
+  @@map("posts")
+}
+
+model Like {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id])
+  userId String
+  postId String
+
+  @@map("likes")
+}
