@@ -1,5 +1,13 @@
 {
-	"cSpell.words": ["postgres", "roboto"],
+	"cSpell.words": [
+		"PGUSER",
+		"postgres",
+		"roboto",
+		"PGHOST",
+		"PGDATABASE",
+		"PGPASSWORD",
+		"PGPORT"
+	],
 	"editor.formatOnSave": true,
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
