@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
+import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
 import { crypto } from "./services/crypto";
 
@@ -54,6 +55,38 @@ router.post("/user/register", async (req, res) => {
 	});
 
 	return res.status(201).json({ error: false, data: userCreated });
+});
+
+router.post("/user/create_post", async (req, res) => {
+	const { title, text_content, user_id } = req.body;
+
+	if (!title) {
+		return res
+			.status(422)
+			.json({ error: true, msg: "The title of the post is required" });
+	}
+
+	if (!text_content) {
+		return res
+			.status(422)
+			.json({ error: true, msg: "The content of the post is required" });
+	}
+
+	if (!user_id) {
+		return res
+			.status(422)
+			.json({ error: true, msg: "The user id of the post is required" });
+	}
+
+	const postCreated = await insertPost({ text_content, title, user_id });
+
+	if (!postCreated) {
+		return res
+			.status(500)
+			.json({ error: true, msg: "Internal server error, try again later" });
+	}
+
+	return res.status(201).json({ error: false, data: postCreated });
 });
 
 export { router };
