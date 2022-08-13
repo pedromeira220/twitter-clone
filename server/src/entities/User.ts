@@ -9,7 +9,6 @@ export class User {
 	public profile_picture: string;
 	public identifier: string;
 	public created_at: Date;
-	public post_id_list: string[] = [];
 
 	constructor(props: IUser, id?: string) {
 		this.name = props.name;
