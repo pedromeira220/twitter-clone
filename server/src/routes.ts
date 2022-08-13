@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
+import { getAllPosts } from "./repositories/functions/getAllPosts";
 import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
 import { crypto } from "./services/crypto";
@@ -87,6 +88,18 @@ router.post("/user/create_post", async (req, res) => {
 	}
 
 	return res.status(201).json({ error: false, data: postCreated });
+});
+
+router.get("/get_all_posts", async (req, res) => {
+	const postList = await getAllPosts();
+
+	if (!postList) {
+		return res
+			.status(500)
+			.json({ error: true, msg: "Internal server error, try again later" });
+	}
+
+	return res.status(200).json({ data: postList });
 });
 
 export { router };
