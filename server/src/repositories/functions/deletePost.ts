@@ -12,7 +12,7 @@ export async function deletePost({ post_id }: deletePostProps) {
 			},
 		});
 
-		return deletePost;
+		return deletedPost;
 	} catch (error) {
 		console.error(error);
 		return null;
