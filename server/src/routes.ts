@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { deleteLike } from "./repositories/functions/deleteLike";
+import { deletePost } from "./repositories/functions/deletePost";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
 import { getAllPosts } from "./repositories/functions/getAllPosts";
@@ -144,6 +145,22 @@ router.delete("/user/unlike_post", async (req, res) => {
 	}
 
 	return res.status(200).json({ error: false, data: likeDeleted });
+});
+
+router.delete("/user/delete_post", async (req, res) => {
+	const { post_id } = req.body;
+
+	if (!post_id) {
+		return res.status(422).json({ error: true, msg: "The post id is required" });
+	}
+
+	const deletedPost = await deletePost({ post_id });
+
+	if (!deletedPost) {
+		return res.status(500).json({ error: true, msg: "Internal server error" });
+	}
+
+	return res.status(200).json({ error: false, data: deletePost });
 });
 
 export { router };
