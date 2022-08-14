@@ -3,6 +3,7 @@ import { ImageSquare } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { tweetProps, userProps } from "../../@types/types";
 import { theme } from "../../public/theme";
+import { apiBackendFunctions } from "../../services/apiBackend";
 import { ButtonLight } from "../ButtonLight";
 import { ButtonMain } from "../ButtonMain";
 import { Line } from "../Line";
@@ -57,6 +58,7 @@ export function PostInput({
 
 		setPostInputText("");
 		setTweetsList(newTweetsList);
+		apiBackendFunctions.getAllPosts();
 	}
 
 	return (
