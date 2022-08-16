@@ -1,16 +1,38 @@
 import { Like } from "../../entities/Like";
 import { prisma } from "../prisma";
 
-export async function deleteLike({ post_id, user_id }: Like) {
+type IDeleteLikeRequest = {
+	post_id: string;
+	username_identifier: string;
+};
+
+export async function deleteLike({
+	post_id,
+	username_identifier,
+}: IDeleteLikeRequest) {
 	try {
-		const likeFound = await prisma.like.findFirst({
+		const userFound = await prisma.user.findFirst({
 			where: {
-				postId: post_id,
-				userId: user_id,
+				identifier: username_identifier,
 			},
 		});
 
-		const like_id = likeFound?.id;
+		if (!userFound) {
+			return null;
+		}
+
+		const likeFound = await prisma.like.findFirst({
+			where: {
+				postId: post_id,
+				userId: userFound.id,
+			},
+		});
+
+		if (!likeFound) {
+			return null;
+		}
+
+		const like_id = likeFound.id;
 
 		const likeDeleted = await prisma.like.delete({
 			where: {

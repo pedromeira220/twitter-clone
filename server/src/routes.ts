@@ -135,17 +135,19 @@ router.post("/user/like_a_post", async (req, res) => {
 });
 
 router.delete("/user/unlike_post", async (req, res) => {
-	const { user_id, post_id } = req.body;
+	const { username_identifier, post_id } = req.body;
 
-	if (!user_id) {
-		return res.status(422).json({ error: true, msg: "The user id is required" });
+	if (!username_identifier) {
+		return res
+			.status(422)
+			.json({ error: true, msg: "The username identifier is required" });
 	}
 
 	if (!post_id) {
 		return res.status(422).json({ error: true, msg: "The post id is required" });
 	}
 
-	const likeDeleted = await deleteLike({ post_id, user_id });
+	const likeDeleted = await deleteLike({ post_id, username_identifier });
 
 	if (!likeDeleted) {
 		return res.status(422).json({ error: true, msg: "Internal server error" });
