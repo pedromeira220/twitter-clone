@@ -25,32 +25,31 @@ export function Timeline() {
 	const [isLoadingData, setIsLoadingData] = useState(false);
 
 	useEffect(() => {
-		console.log(tweetsList);
-	}, [tweetsList]);
-
-	useEffect(() => {
 		async function loadData() {
 			setIsLoadingData(true);
-			const response = await apiBackendFunctions.getAllPosts();
+			const tweetListFromResponse = await apiBackendFunctions.getAllPosts();
 
-			const tweetListResponse: tweetProps[] = response.map((tweetFromResponse) => {
-				const newTweet: tweetProps = {
-					data: {
-						content: tweetFromResponse.text_content,
-						creationDate: new Date(tweetFromResponse.created_at),
-						id: tweetFromResponse.id,
-						numberOfLikes: tweetFromResponse.numberOfLikes,
-						user: newUser,
-					},
-				};
+			console.log("Tweet list from response", tweetListFromResponse);
 
-				console.log("Tweet criado: ", newTweet);
+			const sanitatedTweetList: tweetProps[] = tweetListFromResponse.map(
+				(tweetFromResponse) => {
+					const newTweet: tweetProps = {
+						data: {
+							content: tweetFromResponse.text_content,
+							creationDate: new Date(tweetFromResponse.created_at),
+							id: tweetFromResponse.id,
+							numberOfLikes: tweetFromResponse.numberOfLikes,
+							user: user,
+						},
+					};
 
-				return newTweet;
-			});
+					return newTweet;
+				}
+			);
 
-			setTweetsList(tweetListResponse);
+			setTweetsList(sanitatedTweetList);
 			setIsLoadingData(false);
+			console.log("Tweet list", tweetsList);
 		}
 
 		loadData();
@@ -67,13 +66,21 @@ export function Timeline() {
 				<></>
 			) : (
 				<>
-					<FeedTimeline
-						user={user}
-						tweets={tweetsList}
-						setTweetsList={setTweetsList}
-					/>
+					<>
+						<>
+							<FeedTimeline
+								user={user}
+								tweets={tweetsList}
+								setTweetsList={setTweetsList}
+							/>
+						</>
+					</>
 				</>
 			)}
 		</Container>
 	);
 }
+
+/*
+
+*/

@@ -24,8 +24,6 @@ export function Register() {
 		if (!authUseCase.isValidEmail(emailText)) {
 			throwError("Invalid email format");
 		}
-
-		console.log(emailText, passwordText, nameText);
 	}
 
 	function handleEmailInputChange(event: React.ChangeEvent<HTMLInputElement>) {

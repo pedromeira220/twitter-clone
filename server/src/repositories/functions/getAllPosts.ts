@@ -17,6 +17,9 @@ export async function getAllPosts() {
 				text_content: true,
 				created_at: true,
 			},
+			orderBy: {
+				created_at: "desc",
+			},
 		});
 
 		const postListToReturn = await Promise.all(

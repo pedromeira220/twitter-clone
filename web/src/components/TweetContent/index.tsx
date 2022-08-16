@@ -65,8 +65,6 @@ export function TweetContent({
 	useEffect(() => {
 		const currentDate = new Date();
 
-		console.log("Data", currentDate.getTime() - creationDate.getTime());
-
 		setPostTime(new Date(currentDate.getTime() - creationDate.getTime()));
 	}, []);
 

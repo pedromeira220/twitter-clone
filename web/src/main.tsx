@@ -7,7 +7,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
 		<UserContext.Provider
 			value={{
-				identifier: "pedromeira220",
+				identifier: "pedromeira",
 				name: "Pedro Meira",
 				profilePicture: "https://github.com/petergamer8k.png",
 				email: "pedro@email.com",

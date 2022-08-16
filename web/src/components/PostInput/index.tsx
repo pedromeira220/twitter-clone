@@ -56,8 +56,14 @@ export function PostInput({
 		};
 		const newTweetsList = [newTweet, ...tweetsList];
 
-		setPostInputText("");
 		setTweetsList(newTweetsList);
+
+		apiBackendFunctions.createPost({
+			text_content: postInputText,
+			title: user.name,
+			username_identifier: user.identifier,
+		});
+		setPostInputText("");
 		apiBackendFunctions.getAllPosts();
 	}
 

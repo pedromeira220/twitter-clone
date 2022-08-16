@@ -62,7 +62,7 @@ router.post("/user/register", async (req, res) => {
 });
 
 router.post("/user/create_post", async (req, res) => {
-	const { title, text_content, user_id } = req.body;
+	const { title, text_content, username_identifier } = req.body;
 
 	if (!title) {
 		return res
@@ -76,13 +76,20 @@ router.post("/user/create_post", async (req, res) => {
 			.json({ error: true, msg: "The content of the post is required" });
 	}
 
-	if (!user_id) {
+	if (!username_identifier) {
 		return res
 			.status(422)
-			.json({ error: true, msg: "The user id of the post is required" });
+			.json({
+				error: true,
+				msg: "The username identifier of the post is required",
+			});
 	}
 
-	const postCreated = await insertPost({ text_content, title, user_id });
+	const postCreated = await insertPost({
+		text_content,
+		title,
+		username_identifier,
+	});
 
 	if (!postCreated) {
 		return res

@@ -23,8 +23,6 @@ export function LogIn() {
 		if (!authUseCase.isValidEmail(emailText)) {
 			throwError("Invalid email");
 		}
-
-		console.log(emailText, passwordText);
 	}
 
 	function handleEmailInputChange(event: React.ChangeEvent<HTMLInputElement>) {
