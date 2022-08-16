@@ -1,11 +1,29 @@
 import { Like } from "../../entities/Like";
 import { prisma } from "../prisma";
 
-export async function insertLike({ user_id, post_id }: Like) {
+type ICreateLikeRequest = {
+	username_identifier: string;
+	post_id: string;
+};
+
+export async function insertLike({
+	username_identifier,
+	post_id,
+}: ICreateLikeRequest) {
 	try {
+		const userFound = await prisma.user.findFirst({
+			where: {
+				identifier: username_identifier,
+			},
+		});
+
+		if (!userFound) {
+			return null;
+		}
+
 		const checkIfLikeExists = await prisma.like.findFirst({
 			where: {
-				userId: user_id,
+				userId: userFound.id,
 				postId: post_id,
 			},
 		});
@@ -16,7 +34,7 @@ export async function insertLike({ user_id, post_id }: Like) {
 
 		const like = await prisma.like.create({
 			data: {
-				userId: user_id,
+				userId: userFound.id,
 				postId: post_id,
 			},
 		});

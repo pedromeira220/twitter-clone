@@ -77,12 +77,10 @@ router.post("/user/create_post", async (req, res) => {
 	}
 
 	if (!username_identifier) {
-		return res
-			.status(422)
-			.json({
-				error: true,
-				msg: "The username identifier of the post is required",
-			});
+		return res.status(422).json({
+			error: true,
+			msg: "The username identifier of the post is required",
+		});
 	}
 
 	const postCreated = await insertPost({
@@ -113,17 +111,19 @@ router.get("/get_all_posts", async (req, res) => {
 });
 
 router.post("/user/like_a_post", async (req, res) => {
-	const { user_id, post_id } = req.body;
+	const { username_identifier, post_id } = req.body;
 
-	if (!user_id) {
-		return res.status(422).json({ error: true, msg: "The user id is required" });
+	if (!username_identifier) {
+		return res
+			.status(422)
+			.json({ error: true, msg: "The username identifier is required" });
 	}
 
 	if (!post_id) {
 		return res.status(422).json({ error: true, msg: "The post id is required" });
 	}
 
-	const likeCreated = await insertLike({ post_id, user_id });
+	const likeCreated = await insertLike({ post_id, username_identifier });
 
 	if (!likeCreated) {
 		return res
