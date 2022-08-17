@@ -32,6 +32,11 @@ type ILikeAPostRequest = {
 	post_id: string;
 };
 
+type IUnlikeAPostRequest = {
+	username_identifier: string;
+	post_id: string;
+};
+
 type ICanUserLikePostRequest = {
 	post_id: string;
 	username_identifier: string;
@@ -100,6 +105,23 @@ export const apiBackendFunctions = {
 			const response = await apiBackend.post("/user/like_a_post", {
 				username_identifier: username_identifier,
 				post_id: post_id,
+			});
+
+			const data: IResponse<tweetList> = response.data;
+
+			return data.data;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	},
+	unlikeAPost: async ({ post_id, username_identifier }: IUnlikeAPostRequest) => {
+		try {
+			const response = await apiBackend.delete("/user/unlike_post", {
+				data: {
+					username_identifier: username_identifier,
+					post_id: post_id,
+				},
 			});
 
 			const data: IResponse<tweetList> = response.data;

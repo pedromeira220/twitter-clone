@@ -45,21 +45,33 @@ export function TweetContent({
 	const [postTime, setPostTime] = useState(new Date());
 	const [canLikeTweet, setCanLikeTweet] = useState(true);
 	const [numberOfLikesUpdated, setNumberOfLikesUpdated] = useState(0);
+	const [wasButtonLikeClicked, setWasButtonLikeClicked] = useState(false);
 
 	async function handleLikeButtonClick() {
-		setNumberOfLikesUpdated((state) => {
+		if (wasButtonLikeClicked) {
+			setNumberOfLikesUpdated((state) => {
+				if (canLikeTweet) {
+					return state + 1;
+				}
+				return state;
+			});
 			if (canLikeTweet) {
-				return state + 1;
+				await apiBackendFunctions.likeAPost({
+					post_id: tweet.data.id,
+					username_identifier: user.identifier,
+				});
+				setCanLikeTweet(false);
 			}
-			return state;
-		});
-		if (canLikeTweet) {
-			await apiBackendFunctions.likeAPost({
+		} else {
+			await apiBackendFunctions.unlikeAPost({
 				post_id: tweet.data.id,
 				username_identifier: user.identifier,
 			});
-			setCanLikeTweet(false);
+			setCanLikeTweet(true);
+			setNumberOfLikesUpdated((state) => state - 1);
 		}
+
+		setWasButtonLikeClicked((state) => !state);
 	}
 
 	useEffect(() => {
@@ -75,6 +87,7 @@ export function TweetContent({
 					username_identifier: user.identifier,
 				})
 			);
+			setWasButtonLikeClicked(canLikeTweet);
 		}
 	}, []);
 
