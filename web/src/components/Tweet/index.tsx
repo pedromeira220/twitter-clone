@@ -19,7 +19,7 @@ export function Tweet({ tweet, setTweetsList, tweets }: tweetComponentProps) {
 				<ProfilePictureContainer>
 					<ProfilePicture
 						altText={"Profile picture of user " + user.name}
-						source={user.profilePicture}
+						source={user.profile_picture}
 					/>
 				</ProfilePictureContainer>
 				<TweetContent

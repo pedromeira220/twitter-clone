@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 			value={{
 				identifier: "pedromeira",
 				name: "Pedro Meira",
-				profilePicture: "https://github.com/petergamer8k.png",
+				profile_picture: "https://github.com/petergamer8k.png",
 				email: "pedro@email.com",
 			}}
 		>

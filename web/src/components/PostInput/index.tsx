@@ -52,6 +52,7 @@ export function PostInput({
 				numberOfLikes: 0,
 				id: new Date().getTime().toString(),
 				user,
+				user_id: user.id || "",
 			},
 		};
 		const newTweetsList = [newTweet, ...tweetsList];
@@ -72,7 +73,7 @@ export function PostInput({
 			<div>
 				<ProfilePicture
 					altText={"Profile picture of user " + user.name}
-					source={user.profilePicture}
+					source={user.profile_picture}
 				/>
 			</div>
 			<div style={{ marginLeft: "1rem", width: "100%" }}>

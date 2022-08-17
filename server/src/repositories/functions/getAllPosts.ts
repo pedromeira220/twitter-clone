@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import { prisma } from "../prisma";
 
 export async function getAllPosts() {
@@ -7,6 +8,7 @@ export async function getAllPosts() {
 		text_content: string;
 		created_at: Date;
 		numberOfLikes: number;
+		user: User;
 	};
 
 	try {
@@ -16,6 +18,7 @@ export async function getAllPosts() {
 				id: true,
 				text_content: true,
 				created_at: true,
+				User: true,
 			},
 			orderBy: {
 				created_at: "desc",
@@ -36,6 +39,7 @@ export async function getAllPosts() {
 					numberOfLikes: numberOfLikes,
 					text_content: post.text_content,
 					title: post.title,
+					user: post.User,
 				};
 
 				return newPost;

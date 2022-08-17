@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userProps } from "../@types/types";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 	? import.meta.env.VITE_BASE_URL
@@ -19,6 +20,7 @@ type tweetList = {
 	numberOfLikes: number;
 	text_content: string;
 	title: string;
+	user: userProps;
 };
 
 type ICreatePostRequest = {
@@ -42,6 +44,10 @@ type ICanUserLikePostRequest = {
 	username_identifier: string;
 };
 
+type IGetUserDataRequest = {
+	user_id: string;
+};
+
 export const apiBackendFunctions = {
 	getAllPosts: async () => {
 		let hasConnection: boolean;
@@ -62,6 +68,13 @@ export const apiBackendFunctions = {
 					numberOfLikes: 0,
 					text_content: "",
 					title: "",
+					user: {
+						email: "",
+						identifier: "",
+						name: "",
+						profile_picture: "",
+						id: "",
+					},
 				},
 			];
 
@@ -98,6 +111,13 @@ export const apiBackendFunctions = {
 					numberOfLikes: 0,
 					text_content: "",
 					title: "",
+					user: {
+						email: "",
+						identifier: "",
+						name: "",
+						profile_picture: "",
+						id: "",
+					},
 				},
 			];
 
@@ -149,6 +169,26 @@ export const apiBackendFunctions = {
 		} catch (error) {
 			console.error(error);
 			return false;
+		}
+	},
+	getUserData: async ({ user_id }: IGetUserDataRequest) => {
+		try {
+			const response = await apiBackend.get(`/user/get_data/user_id=${user_id}`);
+			const data: IResponse<userProps> = response.data;
+
+			return data.data;
+		} catch (error) {
+			console.error(error);
+
+			const returnObject: userProps = {
+				email: "",
+				identifier: "",
+				name: "",
+				profile_picture: "",
+				id: "",
+			};
+
+			return returnObject;
 		}
 	},
 };

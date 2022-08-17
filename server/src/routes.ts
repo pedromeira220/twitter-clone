@@ -4,6 +4,7 @@ import { deleteLike } from "./repositories/functions/deleteLike";
 import { deletePost } from "./repositories/functions/deletePost";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
+import { findUserById } from "./repositories/functions/findUserById";
 import { getAllPosts } from "./repositories/functions/getAllPosts";
 import { getNumberOfLikesFromPost } from "./repositories/functions/getNumberOfLikesFromPost";
 import { insertLike } from "./repositories/functions/insertLike";
@@ -230,5 +231,21 @@ router.get(
 		});
 	}
 );
+
+router.get("/user/get_data/user_id=:user_id", async (req, res) => {
+	const { user_id } = req.params;
+
+	if (!user_id) {
+		return res.status(422).json({ error: true, msg: "The user id is required" });
+	}
+
+	const { errorMsg, userFond } = await findUserById({ user_id });
+
+	if (!userFond) {
+		return res.status(404).json({ error: true, msg: errorMsg });
+	}
+
+	return res.status(200).json({ error: false, data: userFond });
+});
 
 export { router };
