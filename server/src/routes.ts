@@ -9,6 +9,7 @@ import { getNumberOfLikesFromPost } from "./repositories/functions/getNumberOfLi
 import { insertLike } from "./repositories/functions/insertLike";
 import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
+import { prisma } from "./repositories/prisma";
 import { crypto } from "./services/crypto";
 
 const router = Router();

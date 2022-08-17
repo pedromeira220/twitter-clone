@@ -27,7 +27,8 @@ export function Timeline() {
 	useEffect(() => {
 		async function loadData() {
 			setIsLoadingData(true);
-			const tweetListFromResponse = await apiBackendFunctions.getAllPosts();
+			const { tweetList: tweetListFromResponse, hasConnection } =
+				await apiBackendFunctions.getAllPosts();
 
 			console.log("Tweet list from response", tweetListFromResponse);
 
@@ -63,7 +64,9 @@ export function Timeline() {
 			<PostInput user={user} tweets={tweetsList} setTweetsList={setTweetsList} />
 			<BigSeparator />
 			{isLoadingData ? (
-				<></>
+				<>
+					<p>carregando</p>
+				</>
 			) : (
 				<>
 					<>

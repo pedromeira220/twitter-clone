@@ -117,13 +117,10 @@ export function PostInput({
 						marginTop: 10,
 						display: "flex",
 						flexDirection: "row",
-						justifyContent: "space-between",
+						justifyContent: "flex-end",
 						alignItems: "center",
 					}}
 				>
-					<ButtonLight hoverColor={theme.colors.main.light}>
-						<ImageSquare size={24} color={theme.colors.main._100} />
-					</ButtonLight>
 					<ButtonMain
 						disabled={isButtonMainDisabled}
 						onClick={() => {

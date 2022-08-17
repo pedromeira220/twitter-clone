@@ -44,12 +44,14 @@ type ICanUserLikePostRequest = {
 
 export const apiBackendFunctions = {
 	getAllPosts: async () => {
+		let hasConnection: boolean;
+
 		try {
 			const response = await apiBackend.get("/get_all_posts");
 
 			const data: IResponse<tweetList[]> = response.data;
-
-			return data.data;
+			hasConnection = true;
+			return { tweetList: data.data, hasConnection: hasConnection };
 		} catch (error) {
 			console.error(error);
 
@@ -63,7 +65,9 @@ export const apiBackendFunctions = {
 				},
 			];
 
-			return returnObject;
+			hasConnection = false;
+
+			return { tweetList: returnObject, hasConnection: hasConnection };
 		}
 	},
 
