@@ -18,6 +18,7 @@ import {
 
 import { Heart } from "phosphor-react";
 import { tweetProps, userProps } from "../../@types/types";
+import { apiBackendFunctions } from "../../services/apiBackend";
 
 //NOTE: Fix the post time
 
@@ -42,30 +43,39 @@ export function TweetContent({
 	tweet,
 }: tweetContent) {
 	const [postTime, setPostTime] = useState(new Date());
+	const [canLikeTweet, setCanLikeTweet] = useState(true);
+	const [numberOfLikesUpdated, setNumberOfLikesUpdated] = useState(0);
 
-	function handleLikeButtonClick() {
-		setTweetsList((tweetListState) => {
-			const newTweetList = tweetListState.map((currentTweet) => {
-				if (currentTweet.data.id == tweet.data.id) {
-					const tweetToReturn = {
-						...currentTweet.data,
-						numberOfLikes: numberOfLikes + 1,
-					};
-
-					return { data: tweetToReturn };
-				}
-
-				return currentTweet;
-			});
-
-			return newTweetList;
+	async function handleLikeButtonClick() {
+		setNumberOfLikesUpdated((state) => {
+			if (canLikeTweet) {
+				return state + 1;
+			}
+			return state;
 		});
+		if (canLikeTweet) {
+			await apiBackendFunctions.likeAPost({
+				post_id: tweet.data.id,
+				username_identifier: user.identifier,
+			});
+			setCanLikeTweet(false);
+		}
 	}
 
 	useEffect(() => {
 		const currentDate = new Date();
-
 		setPostTime(new Date(currentDate.getTime() - creationDate.getTime()));
+		loadData();
+
+		async function loadData() {
+			setNumberOfLikesUpdated(numberOfLikes);
+			setCanLikeTweet(
+				await apiBackendFunctions.canUserLikePost({
+					post_id: tweet.data.id,
+					username_identifier: user.identifier,
+				})
+			);
+		}
 	}, []);
 
 	return (
@@ -110,13 +120,48 @@ export function TweetContent({
 			<ActionButtonsContainer>
 				<ActionButton
 					onClick={handleLikeButtonClick}
-					icon={<Heart size={19} color={theme.colors.theme.middleGray} />}
-					numberOfClicksByOtherUsers={(numberOfLikes >= 1000
-						? `${numberOfLikes / 1000}k`
-						: numberOfLikes
+					icon={
+						<Heart
+							size={19}
+							color={
+								canLikeTweet ? theme.colors.theme.middleGray : theme.colors.main._100
+							}
+						/>
+					}
+					numberOfClicksByOtherUsers={(numberOfLikesUpdated >= 1000
+						? `${numberOfLikesUpdated / 1000}k`
+						: numberOfLikesUpdated
 					).toString()}
 				/>
 			</ActionButtonsContainer>
 		</Container>
 	);
 }
+
+/* 
+
+function handleLikeButtonClick() {
+		setTweetsList((tweetListState) => {
+			const newTweetList = tweetListState.map((currentTweet) => {
+				if (currentTweet.data.id == tweet.data.id && canLikeTweet) {
+					const tweetToReturn = {
+						...currentTweet.data,
+						numberOfLikes: numberOfLikes + 1,
+					};
+
+					setCanLikeTweet(false);
+					apiBackendFunctions.likeAPost({
+						post_id: currentTweet.data.id,
+						username_identifier: user.identifier,
+					});
+
+					return { data: tweetToReturn };
+				}
+
+				return currentTweet;
+			});
+
+			return newTweetList;
+		});
+	}
+*/

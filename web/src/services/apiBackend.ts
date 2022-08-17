@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 	? import.meta.env.VITE_BASE_URL
-	: "http://localhost:3333";
+	: "http://localhost:8888";
 
 export const apiBackend = axios.create({
 	baseURL: BASE_URL,
@@ -24,6 +24,16 @@ type tweetList = {
 type ICreatePostRequest = {
 	title: string;
 	text_content: string;
+	username_identifier: string;
+};
+
+type ILikeAPostRequest = {
+	username_identifier: string;
+	post_id: string;
+};
+
+type ICanUserLikePostRequest = {
+	post_id: string;
 	username_identifier: string;
 };
 
@@ -83,6 +93,36 @@ export const apiBackendFunctions = {
 			];
 
 			return returnObject;
+		}
+	},
+	likeAPost: async ({ post_id, username_identifier }: ILikeAPostRequest) => {
+		try {
+			const response = await apiBackend.post("/user/like_a_post", {
+				username_identifier: username_identifier,
+				post_id: post_id,
+			});
+
+			const data: IResponse<tweetList> = response.data;
+
+			return data.data;
+		} catch (error) {
+			console.error(error);
+			return null;
+		}
+	},
+	canUserLikePost: async ({
+		post_id,
+		username_identifier,
+	}: ICanUserLikePostRequest) => {
+		try {
+			const response = await apiBackend.get(
+				`/user/can_user_like_post/post_id=${post_id}/username_identifier=${username_identifier}`
+			);
+
+			return response.data.data.canUserLikePost;
+		} catch (error) {
+			console.error(error);
+			return false;
 		}
 	},
 };

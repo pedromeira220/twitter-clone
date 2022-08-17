@@ -17,7 +17,7 @@ export function ActionButton({
 }: actionButtonProps) {
 	return (
 		<Container>
-			<ButtonLight {...rest} hoverColor={theme.colors.redLight}>
+			<ButtonLight {...rest} hoverColor={theme.colors.main.light}>
 				{icon}
 			</ButtonLight>
 

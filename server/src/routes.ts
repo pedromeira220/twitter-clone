@@ -1,9 +1,11 @@
 import { Router } from "express";
+import { canUserLikePost } from "./repositories/functions/canUserLikePost";
 import { deleteLike } from "./repositories/functions/deleteLike";
 import { deletePost } from "./repositories/functions/deletePost";
 import { findByEmail } from "./repositories/functions/findByEmail";
 import { findByIdentifier } from "./repositories/functions/findByIdentifier";
 import { getAllPosts } from "./repositories/functions/getAllPosts";
+import { getNumberOfLikesFromPost } from "./repositories/functions/getNumberOfLikesFromPost";
 import { insertLike } from "./repositories/functions/insertLike";
 import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
@@ -171,5 +173,61 @@ router.delete("/user/delete_post", async (req, res) => {
 
 	return res.status(200).json({ error: false, data: deletePost });
 });
+
+router.get("/user/get_like_from_post/:post_id", async (req, res) => {
+	const { post_id } = req.params;
+
+	if (!post_id) {
+		return res.status(422).json({ error: false, msg: "The post id is required" });
+	}
+
+	const numberOfLikesFromPost = await getNumberOfLikesFromPost({ post_id });
+
+	console.log(numberOfLikesFromPost);
+
+	if (numberOfLikesFromPost == null) {
+		return res.status(500).json({
+			error: true,
+			msg: "Post not found, try again later or test another post id",
+		});
+	}
+
+	return res.status(200).json({
+		error: false,
+		data: {
+			postId: post_id,
+			numberOfLikesFromPost,
+		},
+	});
+});
+
+router.get(
+	"/user/can_user_like_post/post_id=:post_id/username_identifier=:username_identifier",
+	async (req, res) => {
+		const { username_identifier, post_id } = req.params;
+
+		if (!username_identifier) {
+			return res
+				.status(422)
+				.json({ error: true, msg: "The username identifier is required" });
+		}
+
+		if (!post_id) {
+			return res.status(422).json({ error: true, msg: "The post id is required" });
+		}
+
+		const checkIfUserCanLikePost = await canUserLikePost({
+			post_id,
+			username_identifier,
+		});
+
+		return res.status(200).json({
+			error: false,
+			data: {
+				canUserLikePost: checkIfUserCanLikePost,
+			},
+		});
+	}
+);
 
 export { router };
