@@ -1,12 +1,19 @@
-import React, { EventHandler, MouseEventHandler, useState } from "react";
+import React, {
+	EventHandler,
+	MouseEventHandler,
+	useContext,
+	useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 import { ButtonMain } from "../../../components/ButtonMain";
 import { InputMain } from "../../../components/InputMain";
 import { TextBodyBold } from "../../../components/Typography/TextBodyBold";
 import { TextCode } from "../../../components/Typography/TextCode";
 import { theme } from "../../../public/theme";
 import { apiBackendFunctions } from "../../../services/apiBackend";
+import { AuthContext } from "../../../utils/contexts/AuthContext";
 import { AuthUseCase } from "../AuthUseCase";
-import { Container, MainFrame, Title, Form, Footer } from "./style";
+import { Container, MainFrame, Title, Form, Footer, TextLink } from "./style";
 
 const authUseCase = new AuthUseCase();
 
@@ -16,6 +23,9 @@ export function Register() {
 	const [nameText, setNameText] = useState("");
 	const [identifierText, setIdentifierText] = useState("");
 	const [profilePictureURL, setProfilePictureURL] = useState("");
+
+	const authContext = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	interface IUserToCreate {
 		email: string;
@@ -65,9 +75,11 @@ export function Register() {
 
 		if (response.error) {
 			throwError(response.msg);
+			return;
 		}
 
-		console.log(response.data);
+		authContext?.register();
+		navigate("/");
 	}
 
 	function handleProfilePictureChange(
@@ -175,14 +187,17 @@ export function Register() {
 									alignItems: "center",
 								}}
 							>
-								<span
+								<TextLink
 									style={{
 										fontSize: 24,
 										textAlign: "center",
 									}}
+									onClick={() => {
+										navigate("/login");
+									}}
 								>
 									Log in
-								</span>
+								</TextLink>
 							</div>
 						</TextBodyBold>
 					</div>

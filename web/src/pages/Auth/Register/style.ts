@@ -36,3 +36,10 @@ export const Footer = styled.footer`
 	gap: 8px;
 	margin-top: 46px;
 `;
+
+export const TextLink = styled.span`
+	&:hover {
+		cursor: pointer;
+		opacity: 0.7;
+	}
+`;

@@ -1,11 +1,19 @@
-import React, { EventHandler, MouseEventHandler, useState } from "react";
+import React, {
+	EventHandler,
+	MouseEventHandler,
+	useContext,
+	useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 import { ButtonMain } from "../../../components/ButtonMain";
 import { InputMain } from "../../../components/InputMain";
 import { TextBodyBold } from "../../../components/Typography/TextBodyBold";
 import { TextCode } from "../../../components/Typography/TextCode";
 import { theme } from "../../../public/theme";
 import { apiBackendFunctions } from "../../../services/apiBackend";
+import { AuthContext } from "../../../utils/contexts/AuthContext";
 import { AuthUseCase } from "../AuthUseCase";
+import { TextLink } from "../Register/style";
 import { Container, MainFrame, Title, Form, Footer } from "./style";
 
 const authUseCase = new AuthUseCase();
@@ -13,6 +21,9 @@ const authUseCase = new AuthUseCase();
 export function LogIn() {
 	const [emailText, setEmailText] = useState("");
 	const [passwordText, setPasswordText] = useState("");
+
+	const authContext = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	function throwError(errorMessage: string) {
 		alert(errorMessage);
@@ -41,7 +52,11 @@ export function LogIn() {
 
 		if (response.error) {
 			throwError(response.msg);
+			return;
 		}
+
+		authContext?.logIn();
+		navigate("/");
 	}
 
 	function handleEmailInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -98,13 +113,16 @@ export function LogIn() {
 						}}
 					>
 						<TextBodyBold>
-							<span
+							<TextLink
 								style={{
 									fontSize: 24,
 								}}
+								onClick={() => {
+									navigate("/register");
+								}}
 							>
 								Create one
-							</span>
+							</TextLink>
 						</TextBodyBold>
 					</div>
 				</Footer>
