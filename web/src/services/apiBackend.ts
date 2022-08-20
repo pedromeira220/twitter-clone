@@ -9,6 +9,12 @@ export const apiBackend = axios.create({
 	baseURL: BASE_URL,
 });
 
+const userToken = localStorage.getItem("token");
+
+const config = {
+	headers: { Authorization: `Bearer ${userToken}` },
+};
+
 type IResponse<T> = {
 	data: T;
 	error?: boolean;
@@ -90,11 +96,15 @@ export const apiBackendFunctions = {
 		username_identifier,
 	}: ICreatePostRequest) => {
 		try {
-			const response = await apiBackend.post("/user/create_post", {
-				title,
-				text_content,
-				username_identifier,
-			});
+			const response = await apiBackend.post(
+				"/user/create_post",
+				{
+					title,
+					text_content,
+					username_identifier,
+				},
+				config
+			);
 
 			const data: IResponse<tweetList> = response.data;
 
@@ -126,10 +136,14 @@ export const apiBackendFunctions = {
 	},
 	likeAPost: async ({ post_id, username_identifier }: ILikeAPostRequest) => {
 		try {
-			const response = await apiBackend.post("/user/like_a_post", {
-				username_identifier: username_identifier,
-				post_id: post_id,
-			});
+			const response = await apiBackend.post(
+				"/user/like_a_post",
+				{
+					username_identifier: username_identifier,
+					post_id: post_id,
+				},
+				config
+			);
 
 			const data: IResponse<tweetList> = response.data;
 
@@ -145,6 +159,9 @@ export const apiBackendFunctions = {
 				data: {
 					username_identifier: username_identifier,
 					post_id: post_id,
+				},
+				headers: {
+					Authorization: `Bearer ${userToken}`,
 				},
 			});
 
@@ -173,7 +190,10 @@ export const apiBackendFunctions = {
 	},
 	getUserData: async ({ user_id }: IGetUserDataRequest) => {
 		try {
-			const response = await apiBackend.get(`/user/get_data/user_id=${user_id}`);
+			const response = await apiBackend.get(
+				`/user/get_data/user_id=${user_id}`,
+				config
+			);
 			const data: IResponse<userProps> = response.data;
 
 			return data.data;
