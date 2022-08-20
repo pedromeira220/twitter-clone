@@ -5,11 +5,6 @@ export async function findByEmail(email: string) {
 		where: {
 			email: email,
 		},
-		select: {
-			id: true,
-			name: true,
-			email: true,
-		},
 	});
 
 	return userFound;

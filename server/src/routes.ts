@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { canUserLikePost } from "./repositories/functions/canUserLikePost";
 import { deleteLike } from "./repositories/functions/deleteLike";
 import { deletePost } from "./repositories/functions/deletePost";
@@ -12,8 +12,72 @@ import { insertPost } from "./repositories/functions/insertPost";
 import { insertUser } from "./repositories/functions/insertUser";
 import { prisma } from "./repositories/prisma";
 import { crypto } from "./services/crypto";
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 const router = Router();
+
+function checkToken(req: Request, res: Response, next: NextFunction) {
+	const authHeader = req.headers.authorization;
+	const token = authHeader && authHeader.split(" ")[1];
+
+	if (!token) {
+		return res.status(401).json({ error: true, msg: "Access denied" });
+	}
+
+	try {
+		const secret = process.env.JWT_SECRET || "doaiopdasi";
+
+		jwt.verify(token, secret);
+
+		next();
+	} catch (error) {
+		console.error(error);
+		return res.status(401).json({ error: true, msg: "Invalid token" });
+	}
+}
+
+router.post("/user/login", async (req, res) => {
+	const { password, email } = req.body;
+
+	if (!password) {
+		return res.status(422).json({ error: true, msg: "The password is required" });
+	}
+
+	if (!email) {
+		return res.status(422).json({ error: true, msg: "The email is required" });
+	}
+
+	const userFound = await findByEmail(email);
+
+	if (!userFound) {
+		return res.status(404).json({ error: true, msg: "User or password invalid" });
+	}
+
+	const decryptedPassword = crypto.decrypt(userFound.password);
+
+	if (password != decryptedPassword) {
+		return res.status(404).json({ error: true, msg: "User or password invalid" });
+	}
+
+	try {
+		const secret = process.env.JWT_SECRET || "doaiopdasi";
+		const token = jwt.sign(
+			{
+				id: userFound.id,
+			},
+			secret
+		);
+
+		return res
+			.status(200)
+			.json({ error: false, user: { email, id: userFound.id, token } });
+	} catch (error) {
+		console.error(error);
+
+		return res.status(500).json({ error: true, msg: "Unexpected error" });
+	}
+});
 
 router.post("/user/register", async (req, res) => {
 	const { name, email, profile_picture, identifier, password } = req.body;
@@ -65,7 +129,7 @@ router.post("/user/register", async (req, res) => {
 	return res.status(201).json({ error: false, data: userCreated });
 });
 
-router.post("/user/create_post", async (req, res) => {
+router.post("/user/create_post", checkToken, async (req, res) => {
 	const { title, text_content, username_identifier } = req.body;
 
 	if (!title) {
@@ -114,7 +178,7 @@ router.get("/get_all_posts", async (req, res) => {
 	return res.status(200).json({ data: postList });
 });
 
-router.post("/user/like_a_post", async (req, res) => {
+router.post("/user/like_a_post", checkToken, async (req, res) => {
 	const { username_identifier, post_id } = req.body;
 
 	if (!username_identifier) {
@@ -138,7 +202,7 @@ router.post("/user/like_a_post", async (req, res) => {
 	return res.status(201).json({ data: likeCreated });
 });
 
-router.delete("/user/unlike_post", async (req, res) => {
+router.delete("/user/unlike_post", checkToken, async (req, res) => {
 	const { username_identifier, post_id } = req.body;
 
 	if (!username_identifier) {
@@ -160,7 +224,7 @@ router.delete("/user/unlike_post", async (req, res) => {
 	return res.status(200).json({ error: false, data: likeDeleted });
 });
 
-router.delete("/user/delete_post", async (req, res) => {
+router.delete("/user/delete_post", checkToken, async (req, res) => {
 	const { post_id } = req.body;
 
 	if (!post_id) {
@@ -232,7 +296,7 @@ router.get(
 	}
 );
 
-router.get("/user/get_data/user_id=:user_id", async (req, res) => {
+router.get("/user/get_data/user_id=:user_id", checkToken, async (req, res) => {
 	const { user_id } = req.params;
 
 	if (!user_id) {
