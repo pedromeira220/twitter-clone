@@ -191,4 +191,76 @@ export const apiBackendFunctions = {
 			return returnObject;
 		}
 	},
+	registerUser: async ({
+		name,
+		email,
+		profile_picture,
+		identifier,
+		password,
+	}: userProps & { password: string }) => {
+		let response;
+
+		try {
+			response = await apiBackend.post("/user/register", {
+				name,
+				email,
+				profile_picture,
+				identifier,
+				password,
+			});
+
+			const data = response.data;
+
+			const userCreated = data.data;
+
+			localStorage.setItem("user_id", userCreated.id);
+
+			return {
+				error: data.error,
+				data: userCreated,
+			};
+
+			//return data.data;
+		} catch (err) {
+			const error = err as any;
+
+			console.error(error);
+
+			return {
+				error: true,
+				msg: error.response.data.msg,
+			};
+		}
+	},
+	loginUser: async ({
+		email,
+		password,
+	}: {
+		email: string;
+		password: string;
+	}) => {
+		try {
+			const response = await apiBackend.post("/user/login", {
+				email,
+				password,
+			});
+
+			const user = response.data.user;
+
+			localStorage.setItem("token", user.token);
+			localStorage.setItem("user_id", user.id);
+
+			return {
+				error: false,
+				data: user,
+			};
+		} catch (err) {
+			const error = err as any;
+
+			return {
+				error: true,
+				msg: error.response.data.msg,
+			};
+		}
+	},
 };

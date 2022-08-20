@@ -4,6 +4,7 @@ import { InputMain } from "../../../components/InputMain";
 import { TextBodyBold } from "../../../components/Typography/TextBodyBold";
 import { TextCode } from "../../../components/Typography/TextCode";
 import { theme } from "../../../public/theme";
+import { apiBackendFunctions } from "../../../services/apiBackend";
 import { AuthUseCase } from "../AuthUseCase";
 import { Container, MainFrame, Title, Form, Footer } from "./style";
 
@@ -17,11 +18,29 @@ export function LogIn() {
 		alert(errorMessage);
 	}
 
-	function handleLogIn(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+	async function handleLogIn(
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+	) {
 		event.preventDefault();
 
 		if (!authUseCase.isValidEmail(emailText)) {
 			throwError("Invalid email");
+		}
+
+		const userToLogIn = {
+			email: emailText,
+			password: passwordText,
+		};
+
+		const response = await apiBackendFunctions.loginUser({
+			email: userToLogIn.email,
+			password: userToLogIn.password,
+		});
+
+		console.log(response);
+
+		if (response.error) {
+			throwError(response.msg);
 		}
 	}
 
