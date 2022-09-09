@@ -46,7 +46,7 @@ export function Timeline() {
 							id: tweetFromResponse.id,
 							numberOfLikes: tweetFromResponse.numberOfLikes,
 							user: tweetFromResponse.user,
-							user_id: user.id || "",
+							user_id: user?.id || "",
 						},
 					};
 
