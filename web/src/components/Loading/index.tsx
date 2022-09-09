@@ -3,7 +3,7 @@ import { Container } from "./style";
 import ReactLoading from "react-loading";
 import { theme } from "../../public/theme";
 
-export function Loading(props: ReactLoading) {
+export function Loading() {
 	return (
 		<>
 			<Container>
