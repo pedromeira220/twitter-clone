@@ -119,7 +119,9 @@ export function TweetContent({
 
 					<PostTime>
 						<TextCode fontSize="15px" textColor={theme.colors.theme.middleGray}>
-							<span>{dayjs(postTime).format("DD/MM/YYYY hh:mm:ss")}</span>
+							<span>{`Postado em ${dayjs(postTime).format(
+								"DD/MM/YYYY hh:mm:ss"
+							)}`}</span>
 						</TextCode>
 					</PostTime>
 				</UserInfo>
