@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { tweetProps, userProps } from "../../@types/types";
 import { theme } from "../../public/theme";
 import { apiBackendFunctions } from "../../services/apiBackend";
+import { AuthContext } from "../../utils/contexts/AuthContext";
 import { UserContext } from "../../utils/contexts/userContext";
 import { BigSeparator } from "../BigSeparator";
 import { FeedTimeline } from "../FeedTimeline";
@@ -16,6 +17,8 @@ import { TitleBold } from "../Typography/TextTitleBold";
 import { Container, TopBar, LoadingContainer, ExitButton } from "./style";
 
 export function Timeline() {
+	const authContext = useContext(AuthContext);
+
 	const user = useContext(UserContext);
 
 	const newUser: userProps = {
@@ -68,7 +71,17 @@ export function Timeline() {
 		<Container>
 			<TopBar>
 				<TitleBold text="Home" />
-				<ExitButton>Sair da conta</ExitButton>
+				<ExitButton
+					onClick={() => {
+						const canLogOut = confirm("Are you sure you want to log out?");
+
+						if (canLogOut) {
+							authContext?.logOut();
+						}
+					}}
+				>
+					Sair da conta
+				</ExitButton>
 			</TopBar>
 
 			<PostInput user={user} tweets={tweetsList} setTweetsList={setTweetsList} />
