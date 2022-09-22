@@ -35,7 +35,7 @@ export function LogIn() {
 		event.preventDefault();
 
 		if (!authUseCase.isValidEmail(emailText)) {
-			throwError("Invalid email");
+			throwError("Email no formato inválido");
 		}
 
 		const userToLogIn = {
@@ -76,7 +76,7 @@ export function LogIn() {
 			<MainFrame>
 				<header>
 					<TextBodyBold>
-						<Title>Log In</Title>
+						<Title>Conecte-se</Title>
 					</TextBodyBold>
 				</header>
 
@@ -93,7 +93,7 @@ export function LogIn() {
 							handlePasswordInputChange(event);
 						}}
 						type={"password"}
-						placeholder="Password"
+						placeholder="Senha"
 					/>
 					<ButtonMain
 						type="submit"
@@ -101,12 +101,12 @@ export function LogIn() {
 						style={{
 							borderRadius: 18,
 						}}
-						text="Log In"
+						text="Conecte-se"
 					/>
 				</Form>
 
 				<Footer>
-					<TextCode>Dont have an account?</TextCode>
+					<TextCode>Não tem uma conta?</TextCode>
 					<div
 						style={{
 							color: theme.colors.theme.light,
@@ -121,7 +121,7 @@ export function LogIn() {
 									navigate("/register");
 								}}
 							>
-								Create one
+								Crie uma
 							</TextLink>
 						</TextBodyBold>
 					</div>

@@ -45,7 +45,7 @@ export function Register() {
 		event.preventDefault();
 
 		if (!authUseCase.isValidEmail(emailText)) {
-			throwError("Invalid email format");
+			throwError("Email no formato inválido");
 		}
 
 		const userToCreate: IUserToCreate = {
@@ -120,7 +120,7 @@ export function Register() {
 			<MainFrame>
 				<header>
 					<TextBodyBold>
-						<Title>Register</Title>
+						<Title>Crie sua conta</Title>
 					</TextBodyBold>
 				</header>
 
@@ -137,21 +137,21 @@ export function Register() {
 							handlePasswordInputChange(event);
 						}}
 						type={"password"}
-						placeholder="Password"
+						placeholder="Senha"
 					/>
 					<InputMain
 						onChange={(event) => {
 							handleNameInputChange(event);
 						}}
 						type={"text"}
-						placeholder="Your name"
+						placeholder="Seu name"
 					/>
 					<InputMain
 						onChange={(event) => {
 							handleIdentifierInputChange(event);
 						}}
 						type={"text"}
-						placeholder="Your identifier"
+						placeholder="Digite um identificador"
 					/>
 
 					<ButtonMain
@@ -160,13 +160,13 @@ export function Register() {
 						style={{
 							borderRadius: 18,
 						}}
-						text="Register"
+						text="Criar conta"
 					/>
 				</Form>
 
 				<Footer>
 					<span style={{ textAlign: "center" }}>
-						<TextCode>Already have an account?</TextCode>
+						<TextCode>Já tem uma conta?</TextCode>
 					</span>
 
 					<div
@@ -191,7 +191,7 @@ export function Register() {
 										navigate("/login");
 									}}
 								>
-									Log in
+									Conecte-se
 								</TextLink>
 							</div>
 						</TextBodyBold>
