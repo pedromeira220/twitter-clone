@@ -4,6 +4,9 @@ import { ActionButton } from "../ActionButton";
 import { TweetImage } from "../TweetImage";
 import { TextBodyBold } from "../Typography/TextBodyBold";
 import { TextCode } from "../Typography/TextCode";
+
+import * as dayjs from "dayjs";
+
 import {
 	ActionButtonsContainer,
 	Container,
@@ -75,8 +78,7 @@ export function TweetContent({
 	}
 
 	useEffect(() => {
-		const currentDate = new Date();
-		setPostTime(new Date(currentDate.getTime() - creationDate.getTime()));
+		setPostTime(new Date(creationDate.getTime()));
 		loadData();
 
 		async function loadData() {
@@ -117,7 +119,7 @@ export function TweetContent({
 
 					<PostTime>
 						<TextCode fontSize="15px" textColor={theme.colors.theme.middleGray}>
-							<span>{postTime.getMinutes()}min</span>
+							<span>{dayjs(postTime).format("DD/MM/YYYY hh:mm:ss")}</span>
 						</TextCode>
 					</PostTime>
 				</UserInfo>
