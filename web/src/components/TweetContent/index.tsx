@@ -5,7 +5,7 @@ import { TweetImage } from "../TweetImage";
 import { TextBodyBold } from "../Typography/TextBodyBold";
 import { TextCode } from "../Typography/TextCode";
 
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 
 import {
 	ActionButtonsContainer,
