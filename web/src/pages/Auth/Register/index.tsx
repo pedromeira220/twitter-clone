@@ -61,7 +61,8 @@ export function Register() {
 			identifier: userToCreate.identifier,
 			name: userToCreate.name,
 			password: userToCreate.password,
-			profile_picture: userToCreate.profile_picture,
+			profile_picture:
+				"https://i0.wp.com/researchictafrica.net/wp/wp-content/uploads/2016/10/default-profile-pic.jpg?fit=300%2C300&ssl=1",
 		});
 
 		if (response.error) {
@@ -152,13 +153,7 @@ export function Register() {
 						type={"text"}
 						placeholder="Your identifier"
 					/>
-					<InputMain
-						onChange={(event) => {
-							handleProfilePictureChange(event);
-						}}
-						type={"text"}
-						placeholder="Type a profile picture URL"
-					/>
+
 					<ButtonMain
 						type="submit"
 						onClick={handleLogIn}
