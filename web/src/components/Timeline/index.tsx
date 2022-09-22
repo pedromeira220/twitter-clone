@@ -70,10 +70,10 @@ export function Timeline() {
 	return (
 		<Container>
 			<TopBar>
-				<TitleBold text="Home" />
+				<TitleBold text="Página inicial" />
 				<ExitButton
 					onClick={() => {
-						const canLogOut = confirm("Are you sure you want to log out?");
+						const canLogOut = confirm("Tem certeza que deseja sair de sua conta?");
 
 						if (canLogOut) {
 							authContext?.logOut();

@@ -83,14 +83,13 @@ export function PostInput({
 					}}
 				>
 					<TextCode textColor={theme.colors.theme.middleGray}>
-						{"//What is happing?"}
+						{"//O que está acontecendo?"}
 					</TextCode>
 
 					{isPostInputOpen && (
 						<TextCode textColor={theme.colors.theme.middleGray}>
-							<TextColored color={theme.colors.main._100}>console</TextColored>
-							<span>.</span>
-							<TextColored color={"white"}>log</TextColored>
+							<TextColored color={theme.colors.main._100}>printf</TextColored>
+
 							<TextColored color={theme.colors.theme.light}>(</TextColored>
 							<TextColored color={theme.colors.main._100}>"</TextColored>
 
