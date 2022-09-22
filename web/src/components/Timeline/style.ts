@@ -12,6 +12,9 @@ export const TopBar = styled.div`
 	padding: 13px 17px;
 
 	border-bottom: 1px solid ${theme.colors.theme.darkGray};
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 `;
 
 export const LoadingContainer = styled.div`
@@ -20,4 +23,22 @@ export const LoadingContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+export const ExitButton = styled.button`
+	background-color: ${theme.colors.theme.darkGray};
+	border: none;
+	border-radius: 8px;
+	color: white;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	font-family: ${theme.fonts.jetBrains};
+
+	&:hover {
+		cursor: pointer;
+		background-color: ${theme.colors.theme.middleGray};
+		transition: 0.2s;
+	}
 `;

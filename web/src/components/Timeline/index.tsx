@@ -13,7 +13,7 @@ import { TextCode } from "../Typography/TextCode";
 
 import { TitleBold } from "../Typography/TextTitleBold";
 
-import { Container, TopBar, LoadingContainer } from "./style";
+import { Container, TopBar, LoadingContainer, ExitButton } from "./style";
 
 export function Timeline() {
 	const user = useContext(UserContext);
@@ -68,7 +68,9 @@ export function Timeline() {
 		<Container>
 			<TopBar>
 				<TitleBold text="Home" />
+				<ExitButton>Sair da conta</ExitButton>
 			</TopBar>
+
 			<PostInput user={user} tweets={tweetsList} setTweetsList={setTweetsList} />
 			<BigSeparator />
 			{isLoadingData ? (
